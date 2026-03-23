@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <title>Laborator 4</title>
+</head>
+<body>
+    <center><h1>Gestiune lista cumparaturi</h1>
+    <h2>Adauga produsele tale</h2>
+    
+    <p>
+        Pentru a utiliza aplicația, <strong>completează formularul</strong> de mai jos. 
+        Este <b>necesar</b> să introduci numele corect al produsului.
+    </p>
+
+   <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=200&h=200" 
+             alt="Coș cu alimente" 
+             width="200" 
+             height="200" 
+             [cite_start]title="Produs de prezentare">
+    </center>
+    <fieldset>
+        <legend>Adaugare produs nou</legend> <form id="produsForm">
+            <label>Nume produs:</label>
+            <input type="text" name="numeProdus" maxlength="25" size="20" value="Introdu numele produsului"><br><br>
+
+            <label>Cantitate:</label>
+            <input type="number" name="cantitateProdus" max="100" step="1"><br><br>
+
+            <label>Categorie:</label><br>
+            <select name="categorie" multiple>
+                <option value="Alimente" selected>Alimente</option>
+                <option value="Bauturi">Bauturi</option>
+                <option value="Curatenie">Curatenie</option>
+                <option value="Diverse">Diverse</option>
+            </select><br><br>
+
+            <label>Optiuni :</label><br>
+                <input type="checkbox" name="eco" checked> Ambalaj reciclabil<br>
+                <input type="checkbox" name="premium" disabled> Calitate premium<br>
+
+
+            <label>Observații:</label><br>
+            <textarea name="observatii" cols="30" rows="4" readonly>Produs</textarea><br><br>
+
+            <input type="submit" value="Trimite">
+            <input type="reset" value="Resetează">
+        </form>
+    </fieldset>
+    <h3>Produse in cos</h3>
+    <table border="2" width="100%" bgcolor="#ffffff" align="center"> <tr bgcolor="#cccccc"> <th>Produs</th>
+            <th>Categorie</th>
+            <th>Pret unitariu</th>
+            <th>Cantitate</th>
+        </tr>
+        <tr align="center" valign="middle"> <td>Paine</td>
+            <td>Alimente</td>
+            <td>6 RON</td>
+            <td>2</td>
+        </tr>
+        <tr align="center">
+            <td bgcolor="#e6f7ff">Apa Minerala</td> <td>Bauturi</td>
+            <td>3 RON</td>
+            <td>6</td>
+        </tr>
+        <tr align="center">
+            <td>Mere verzi</td>
+            <td>Alimente</td>
+            <td>10 RON</td>
+            <td>1</td>
+        </tr>
+        <tr>
+            <td colspan="3" align="right"><strong>Total produse în listă:</strong></td>
+            <td align="center"><b>9</b></td>
+        </tr>
+    </table>
+    <br> <div> <span> <h3>Instructiuni de finalizare comanda:</h3>
+            <ol start="5"> 
+                <li>Verifica produsele din tabel.</li>
+                <li>Asigura-te că ai selectat categoria corecta.</li>
+                <li>Apasa butonul de trimitere.</li>
+            </ol>
+        </span>
+    </div>
+
+    <h3>Categorii populare:</h3>
+        <ul>
+            <li>Fructe si legume</li>
+            <li>Produse lactate</li>
+            <li>Bauturi racoritoare</li>
+        </ul>
+    <center>
+
+        <p> 
+            <a href="#top" name="link_intern" target="_self">Inapoi la inceputul paginii</a>
+        </p>
+    </center>
+
+    <div height="50"></div>
+    <script>
+        var numeMagazin = "Numele magazinului meu";
+        let nrProduse = 15;                
+        const versiuneApp = "v1.0.0";
+
+        alert("Bine ati venit la: " + numeMagazin); 
+        console.log("Stoc curent: " + nrProduse);
+        document.write("<h4>Sistem de gestiune - Versiunea: " + versiuneApp + "</h4>");
+
+        function calculeazaTotal(pret, cantitate) {
+            return pret * cantitate;
+        }
+
+        const aplicaDiscount = function(total, procent) {
+            return total - (total * (procent / 100));
+        };
+
+        const formatPret = (suma) => suma.toFixed(2) + " RON";
+
+        let rezultatInitial = calculeazaTotal(25.5, 3);
+        
+        let pretRedus = aplicaDiscount(rezultatInitial, 10);
+        
+        let afisajFinal = formatPret(pretRedus);
+        
+        console.log("Pret final dupa calcul si discount: " + afisajFinal);
+
+        let listaProduse = [
+            { nume: "Paine", pret: 5, cantitate: 2, categorie: "Alimente" },
+            { nume: "Apa", pret: 3, cantitate: 6, categorie: "Bauturi" },
+            { nume: "Sapun", pret: 4, cantitate: 1, categorie: "Curatenie" },
+            { nume: "Mere", pret: 10, cantitate: 2, categorie: "Alimente" },
+            { nume: "Cafea", pret: 25, cantitate: 1, categorie: "Bauturi" }
+        ];
+
+        console.log("Lista de produse");
+        listaProduse.forEach(function(produs) {
+            console.log("Produs: " + produs.nume + " | Categorie: " + produs.categorie);
+        }); 
+
+        let totaluriProduse = listaProduse.map(function(produs) {
+            return produs.pret * produs.cantitate;
+        });
+        console.log("Totaluri per fiecare produs:", totaluriProduse);
+
+    var magazin = {
+        nume: numeMagazin, 
+        adresa: "Strada Victoriei Nr. 10",
+        produse: listaProduse, 
+
+        afiseazaProduse: function() {
+            console.log("Inventar complet pentru " + this.nume + ":");
+            this.produse.forEach(p => console.log(p.nume + " - " + p.categorie));
+        },
+
+        calculeazaValoareTotala: function() {
+            let totalGeneral = 0;
+            this.produse.forEach(p => {
+                totalGeneral += (p.pret * p.cantitate);
+            });
+            return totalGeneral;
+        },
+
+        gasesteProdus: function(numeCautat) {
+            return this.produse.find(p => p.nume.toLowerCase() === numeCautat.toLowerCase()); 
+        }
+    };
+
+    magazin.afiseazaProduse();
+
+    document.write("<p><strong>Valoarea totala a stocului:</strong> " + magazin.calculeazaValoareTotala() + " RON</p>");
+
+    let produsGasit = magazin.gasesteProdus("Apa");
+    console.log("Rezultat cautare 'Apa':", produsGasit);
+
+    let produsInexistent = magazin.gasesteProdus("Ciocolata");
+    if (!produsInexistent) {
+        console.log("Mesaj: Produsul 'Ciocolata' nu a fost gasit în lista.");
+    }
+
+    document.getElementById('produsForm').addEventListener('submit', function(event){
+    event.preventDefault();
+
+    let numeIn = document.forms[0].elements['numeProdus'].value; 
+    let cantitateIn = document.forms[0].elements['cantitateProdus'].value;
+    let categorieIn = document.forms[0].elements['categorie'].value;
+
+    if (numeIn.trim() === "") { 
+        alert("Eroare: Numele produsului nu poate fi gol!");
+        return;
+    }
+
+    if (isNaN(cantitateIn) || cantitateIn <= 0) { 
+        alert("Eroare: Introduceti o cantitate valida.");
+        return;
+    }
+    
+    let produsNou = {
+        nume: numeIn,
+        pret: 0,
+        cantitate: parseInt(cantitateIn),
+        categorie: categorieIn
+    };
+
+    console.log("Date formular colectate:", produsNou);
+
+    magazin.produse.push(produsNou);
+
+    console.log("Confirmare: Produsul '" + numeIn + "' a fost adăugat cu succes în stoc!"); });
+    </script>
+</body>
+</html>
